@@ -35,6 +35,11 @@ class Data_Loader():
         dataset = dsets.ImageFolder(self.path+'/CelebA', transform=transforms)
         return dataset
 
+    def load_custom(self):
+        transforms = self.transform(True, True, True, False)
+        dataset = dsets.ImageFolder(self.path + '/comics', transform=transforms)
+        return dataset
+
 
     def loader(self):
         if self.dataset == 'lsun':
