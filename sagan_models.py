@@ -12,13 +12,17 @@ class GaussianNoise(nn.Module):
         super().__init__()
         self.std = std
         self.decay_rate = decay_rate
+        self.flag = True
 
     def decay_step(self):
         self.std = max(self.std - self.decay_rate, 0)
 
     def forward(self, x):
         if self.training:
-            return x + torch.zeros_like(x).normal_(std=self.std)
+            noise = torch.zeros_like(x)
+            # noise.normal_(std=self.std)
+            nn.init.normal(noise, std=self.std)
+            return x + noise
         else:
             return x
 
