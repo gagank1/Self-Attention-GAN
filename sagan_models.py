@@ -18,7 +18,7 @@ class GaussianNoise(nn.Module):
 
     def forward(self, x):
         if self.training:
-            return x + torch.empty_like(x).normal_(std=self.std)
+            return x + torch.zeros_like(x).normal_(std=self.std)
         else:
             return x
 
