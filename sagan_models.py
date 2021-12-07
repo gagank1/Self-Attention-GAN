@@ -7,6 +7,22 @@ import numpy as np
 
 # FIXES FROM: https://github.com/heykeetae/Self-Attention-GAN/issues/12
 
+class GaussianNoise(nn.Module):
+    def __init__(self, std=0.1, decay_rate=0):
+        super().__init__()
+        self.std = std
+        self.decay_rate = decay_rate
+
+    def decay_step(self):
+        self.std = max(self.std - self.decay_rate, 0)
+
+    def forward(self, x):
+        if self.training:
+            return x + torch.empty_like(x).normal_(std=self.std)
+        else:
+            return x
+
+
 class Self_Attn(nn.Module):
     """ Self attention Layer"""
 
@@ -229,18 +245,21 @@ class Discriminator(nn.Module):
 
         n_layers = int(np.log2(self.imsize)) - 2
         # Initialize the first layer because it is different than the others.
-        layers.append(SpectralNorm(nn.Conv2d(3, conv_dim, 4, 2, 1)))
+        # TESTING GAUSS
+        layers.append(SpectralNorm(nn.Sequential(*[GaussianNoise(), nn.Conv2d(3, conv_dim, 4, 2, 1)])))
         layers.append(nn.LeakyReLU(0.1))
 
         curr_dim = conv_dim
 
         for n in range(n_layers - 1):
-            layers.append(SpectralNorm(nn.Conv2d(curr_dim, curr_dim * 2, 4, 2, 1)))
+            # TESTING GAUSS
+            layers.append(SpectralNorm(nn.Sequential(*[GaussianNoise(), nn.Conv2d(curr_dim, curr_dim * 2, 4, 2, 1)])))
             layers.append(nn.LeakyReLU(0.1))
             curr_dim *= 2
             if 2**(n+2) in attn_feat:
                 layers.append(Self_Attn(curr_dim, 'relu'))
 
+        layers.append(GaussianNoise()) # TESTING
         layers.append(nn.Conv2d(curr_dim, 1, 4))
         self.output = nn.Sequential(*layers)
 
