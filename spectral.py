@@ -14,7 +14,8 @@ def l2normalize(v, eps=1e-12):
 class SpectralNorm(nn.Module):
     def __init__(self, module, name='weight', power_iterations=1):
         super(SpectralNorm, self).__init__()
-        self.module = module
+        self.og_module = module
+        self.module = module[1] if isinstance(module, nn.Sequential) else module
         self.name = name
         self.power_iterations = power_iterations
         if not self._made_params():
@@ -65,4 +66,4 @@ class SpectralNorm(nn.Module):
 
     def forward(self, *args):
         self._update_u_v()
-        return self.module.forward(*args)
+        return self.og_module.forward(*args)
