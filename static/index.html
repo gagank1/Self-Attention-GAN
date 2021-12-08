@@ -117,6 +117,24 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   <hr id="demo">
   <div class="w3-container w3-padding-32 w3-center">  
     <h1>Demo</h1><br>
+    <select name="genchoice" onchange="changeGen(this);">
+      <option selected="selected" value="selected">Choose a Generator</option>
+      <option value="14085">14085</option>
+      <option value="17215">17215</option>
+      <option value="21910">21910</option>
+      <option value="29735">29735</option>
+    </select>
+    <script>
+      function changeGen(e) {
+        fetch('/change?newGen='+e.value)
+          .then(function(resp) {})
+          .catch(function(err) {
+            console.log('Fetch Error :-S', err);
+          });
+        document.getElementById("genviewer").src = "/dummy.png";
+      }
+    </script>
+
     <img src="/dummy.png" id="genviewer" name="genviewer" class="w3-image" style="display:block;margin:auto" width="512" height="512">
     <div class="w3-padding-32">
       <button class="button" onclick="updateImage()">Generate</button>

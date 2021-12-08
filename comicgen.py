@@ -20,6 +20,15 @@ class ComicGenerator:
         self.G.load_state_dict(torch.load(self.weights_path, map_location='cpu'))
         self.G.train() # set to training mode
     
+    def update(self, newpath):
+        self.weights_path = os.path.join(newpath)
+        self.G.load_state_dict(torch.load(self.weights_path, map_location='cpu'))
+        self.G.train() # set to training mode
+        try:
+            os.remove('fakeim.png') # delete old generated image
+        except OSError:
+            pass
+
     def generateImage(self):
         z = tensor2var(torch.randn(self.batch_size, self.z_dim))
         fakeim,_,_ = self.G(z)
