@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>Digital Image Processing</title>
+<title>ComicGAN</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -60,7 +60,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
     <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
     <div class="w3-right w3-padding-16">Fall 2021 </div>
-    <div class="w3-center w3-padding-16">Digital Image Processing: Comic GANs</div>
+    <div class="w3-center w3-padding-16">ComicGAN: Digital Image Processing Term Project</div>
   </div>
 </div>
   
@@ -71,7 +71,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
         <h1>Image Analysis</h1><br>
         <p>These are some of the results we got after training the models. We sampled about 100,000 comic book covers.</p>  
         <h3>Example of Original Cover</h3>
-        <img src="/ganResults.jpg" alt="original" style="width:70%">
+        <img src="/thor.jpg" alt="original" style="width:70%">
     </div>
 
   <!-- top photo row-->
@@ -79,12 +79,12 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     <div class="w3-third">
       <img src="/res1.jpg" alt="1" style="width:100%">
       <h3>Result Example 1</h3>
-      <p>As you can see here-</p>
+      <p>One thing we immediately noticed was that the program struggled to reconstruct the wording. Letters  showed up as unrecognizable shapes. However the placement and contrasted colors to shows us that the program was detecting and replicating Titles.</p>
     </div>
     <div class="w3-third">
       <img src="/res2.jpg" alt="2" style="width:100%">
       <h3>Result Example 2</h3>
-      <p>On thing we immediately noticed was that the program struggled to reconstruct the wording.</p>
+      <p>Our program found a pattern that it picked up pretty well and that is the bold colors. Bright yellow title wording at the top was common for 60s-70s era of comics and is still used often. Other bright colors like red blue and green are also most common and most covers had a variation of these.</p>
     </div>
     <div class="w3-third">
       <img src="/res3.jpg" alt="3" style="width:100%">
@@ -98,17 +98,17 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     <div class="w3-third">
         <img src="/res4.jpg" alt="4" style="width:100%">
         <h3>Result Example 4</h3>
-        <p>As you can see here-</p>
+        <p>This cover was unique because of the dark colors and white writing on the top. This color palette is more typical of some Batman, Spiderman, Venom, Black Panther, and Dr.Strange covers. We can see that the program used white on black for lettering which is exactly as we’d see on comics. Also there is a body form in the center, where localized action usually is seen.</p>
       </div>
       <div class="w3-third">
         <img src="/res5.jpg" alt="5" style="width:100%">
         <h3>Result Example 5</h3>
-        <p>As you can see here-</p>
+        <p>As you can see here, the program was able to recreate a body form with a neck, arms and torso. The details on this were very close to what you’d actually see in comics, like the scaled fabric of suit, shadowing under muscles, and posture. This looks very similar to an earlier version of Red Skull with colors.</p>
       </div>
       <div class="w3-third">
         <img src="/res6.jpg" alt="6" style="width:100%">
         <h3>Result Example 6</h3>
-        <p>As you can see here-</p>
+        <p>This last one is one of the closest we saw to a typical comic book cover. It includes the left corner price tag, a body form in the center, and contrasting title. The action is centralized and the form is almost recognizable. We even see some 3D shading to the title letters.</p>
       </div>
   </div>
 
@@ -124,16 +124,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       <option value="21910">21910</option>
       <option value="29735">29735</option>
     </select>
-    <!-- <script>
-      function changeGen(e) {
-        fetch('/change?newGen='+e.value)
-          .then(function(resp) {})
-          .catch(function(err) {
-            console.log('Fetch Error :-S', err);
-          });
-        document.getElementById("genviewer").src = "/dummy.png";
-      }
-    </script> -->
 
     <img src="/dummy.png" id="genviewer" name="genviewer" class="w3-image" style="display:block;margin:auto" width="512" height="512">
     <div class="w3-padding-32">
@@ -147,7 +137,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       </script>
     </div>
   </div>
-  <hr>
 
   
   <!-- About Section -->
@@ -159,12 +148,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       <h4><b>It all started with a love for comics.</b></h4>
       <p>Comic cover art is absolutely unlike any other art form. The bold colors, the artistic fonts- all so unique. Being such an avid comic reader, I was very intrigued by how image processing would handle such a unique medium.</p>
       <p>Our results were not quite what we were expecting, but it was very interesting to see where the program did well and where it got confused. As you can see in the above image, many patterns formed.</p>
-      <!-- <button type="button"><a href="https://comicgan.herokuapp.com" target="_blank">Click to Test!</a></button> -->
     </div>
   </div>
+
+
+  <!-- Source code-->
   <hr>
-  
+  <div class="w3-container w3-padding-32 w3-center">  
+    <h1>Source Code</h1><br>
+    <div class="w3-padding-32">
+      <h3 href="https://github.com/gagank1/Self-Attention-GAN">GAN and Website</h3>
+      <h3 href="https://github.com/danielyang2000/Web-scraper-for-comicvine.com">Webscraper and Preprocessing</h3>
+    </div>
+  </div>
+
   <!-- Footer -->
+  <hr>
   <footer class="w3-row-padding w3-padding-32">
     <div class="w3-third">
       <h3>TEAM MEMBERS</h3>
