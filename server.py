@@ -1,6 +1,7 @@
 from flask import Flask, send_file, redirect, request
+from PIL import Image
 from comicgen import *
-import threading
+import io
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 
@@ -12,27 +13,20 @@ CGMap = {
     '21910': 2,
     '29735': 3
 }
-CGs = [ComicGenerator(prefix+num+suffix, CGMap[num]) for num in CGMap]
-sem = threading.Semaphore()
+CGs = [ComicGenerator(prefix+num+suffix) for num in CGMap]
+
 
 @app.route('/imgen', methods=['GET'])
 def image():
     arg = request.args['genNum']
     if arg in CGMap:
-        sem.acquire()
-        CGs[CGMap[arg]].generateImage()
-        resp = send_file('fakeim'+str(CGMap[arg])+'.png')
-        sem.release()
+        img = Image.fromarray(CGs[CGMap[arg]].generateImage(), mode='RGB')
+        file_object = io.BytesIO()
+        img.save(file_object, 'PNG')
+        file_object.seek(0)
+        return send_file(file_object, mimetype='image/PNG')
     else:
-        resp = redirect('/dummy.png')
-    return resp
-
-# @app.route('/change', methods=['GET'])
-# def changeGen():
-#     arg = request.args['newGen']
-#     if arg != 'selected':
-#         CG.update(prefix+arg+suffix)
-#     return "<h1></h1>"
+        return redirect('/dummy.png')
 
 @app.route('/')
 def home():
