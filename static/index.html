@@ -117,14 +117,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   <hr id="demo">
   <div class="w3-container w3-padding-32 w3-center">  
     <h1>Demo</h1><br>
-    <select name="genchoice" onchange="changeGen(this);">
+    <select id="genchoice">
       <option selected="selected" value="selected">Choose a Generator</option>
       <option value="14085">14085</option>
       <option value="17215">17215</option>
       <option value="21910">21910</option>
       <option value="29735">29735</option>
     </select>
-    <script>
+    <!-- <script>
       function changeGen(e) {
         fetch('/change?newGen='+e.value)
           .then(function(resp) {})
@@ -133,7 +133,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
           });
         document.getElementById("genviewer").src = "/dummy.png";
       }
-    </script>
+    </script> -->
 
     <img src="/dummy.png" id="genviewer" name="genviewer" class="w3-image" style="display:block;margin:auto" width="512" height="512">
     <div class="w3-padding-32">
@@ -141,7 +141,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       <h4><b>Click the button to generate a comic book cover!</b></h4>
       <script>
         function updateImage() {
-          document.getElementById("genviewer").src = "/imgen?" + new Date().getTime();
+          var genNum = document.getElementById('genchoice').value;
+          document.getElementById("genviewer").src = "/imgen?genNum="+genNum+"&date=" + new Date().getTime();
         }
       </script>
     </div>

@@ -5,4 +5,4 @@ samples/
 models/*
 !models/final/
 .DS_Store
-fakeim.png
+fakeim*.png
