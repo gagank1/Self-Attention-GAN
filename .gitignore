@@ -2,4 +2,7 @@ data/
 nohup.out
 __pycache__/
 samples/
-models/
+models/*
+!models/final/
+.DS_Store
+fakeim.png

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<title>Digital Image Processing</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<link rel="stylesheet" href="/bar.css">
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+
+.button {
+  position: relative;
+  background-color: #4CAF50;
+  border: none;
+  font-size: 28px;
+  color: #FFFFFF;
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.button:after {
+  content: "";
+  background: #f1f1f1;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}
+</style>
+<body>
+
+<!-- DropDown Menu -->
+<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-left" style="display:none;z-index:2;width:40%;min-width:300px" id="mySidebar">
+  <a href="javascript:void(0)" onclick="w3_close()"
+  class="w3-bar-item w3-button">X</a>
+  <a href="#food" onclick="w3_close()" class="w3-bar-item w3-button">Images</a>
+  <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button">About</a>
+</nav>
+
+<!-- top bar -->
+<div class="w3-top">
+  <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+    <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div>
+    <div class="w3-right w3-padding-16">Fall 2021 </div>
+    <div class="w3-center w3-padding-16">Digital Image Processing: Comic GANs</div>
+  </div>
+</div>
+  
+<!-- yellow page -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+    <!-- original pic -->
+    <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+        <h1>Image Analysis</h1><br>
+        <p>These are some of the results we got after training the models. We sampled about 100,000 comic book covers.</p>  
+        <h3>Example of Original Cover</h3>
+        <img src="/ganResults.jpg" alt="original" style="width:70%">
+    </div>
+
+  <!-- top photo row-->
+  <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+    <div class="w3-third">
+      <img src="/res1.jpg" alt="1" style="width:100%">
+      <h3>Result Example 1</h3>
+      <p>As you can see here-</p>
+    </div>
+    <div class="w3-third">
+      <img src="/res2.jpg" alt="2" style="width:100%">
+      <h3>Result Example 2</h3>
+      <p>On thing we immediately noticed was that the program struggled to reconstruct the wording.</p>
+    </div>
+    <div class="w3-third">
+      <img src="/res3.jpg" alt="3" style="width:100%">
+      <h3>Result Example 2</h3>
+      <p>A huge success we found was that every result we got had a square in the top left corner of the page. This is consistent among all comics so was great to see.</p>
+    </div>
+  </div>
+  
+  <!-- second photo row-->
+  <div class="w3-row-padding w3-padding-16 w3-center">
+    <div class="w3-third">
+        <img src="/res4.jpg" alt="4" style="width:100%">
+        <h3>Result Example 4</h3>
+        <p>As you can see here-</p>
+      </div>
+      <div class="w3-third">
+        <img src="/res5.jpg" alt="5" style="width:100%">
+        <h3>Result Example 5</h3>
+        <p>As you can see here-</p>
+      </div>
+      <div class="w3-third">
+        <img src="/res6.jpg" alt="6" style="width:100%">
+        <h3>Result Example 6</h3>
+        <p>As you can see here-</p>
+      </div>
+  </div>
+
+
+  <!-- Demo Section -->
+  <hr id="demo">
+  <div class="w3-container w3-padding-32 w3-center">  
+    <h1>Demo</h1><br>
+    <img src="/dummy.png" id="genviewer" name="genviewer" class="w3-image" style="display:block;margin:auto" width="512" height="512">
+    <div class="w3-padding-32">
+      <button class="button" onclick="updateImage()">Generate</button>
+      <h4><b>Click the button to generate a comic book cover!</b></h4>
+      <script>
+        function updateImage() {
+          document.getElementById("genviewer").src = "/imgen?" + new Date().getTime();
+        }
+      </script>
+    </div>
+  </div>
+  <hr>
+
+  
+  <!-- About Section -->
+  <hr id="about">
+  <div class="w3-container w3-padding-32 w3-center">  
+    <h1>About Our Project</h1><br>
+    <img src="/ganResults.jpg" alt="gansLots" class="w3-image" style="display:block;margin:auto" width="800" height="533">
+    <div class="w3-padding-32">
+      <h4><b>It all started with a love for comics.</b></h4>
+      <p>Comic cover art is absolutely unlike any other art form. The bold colors, the artistic fonts- all so unique. Being such an avid comic reader, I was very intrigued by how image processing would handle such a unique medium.</p>
+      <p>Our results were not quite what we were expecting, but it was very interesting to see where the program did well and where it got confused. As you can see in the above image, many patterns formed.</p>
+      <!-- <button type="button"><a href="https://comicgan.herokuapp.com" target="_blank">Click to Test!</a></button> -->
+    </div>
+  </div>
+  <hr>
+  
+  <!-- Footer -->
+  <footer class="w3-row-padding w3-padding-32">
+    <div class="w3-third">
+      <h3>TEAM MEMBERS</h3>
+      <p>Daniel Yang</p>
+      <p>Gagan Kaushik</p>
+      <p>Kristen Erlon</p>
+      <p>  _  </p>
+      <p>Special Thanks to Al Bovik and TAs</p>
+
+      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </div>
+
+  </footer>
+
+<!-- end of yellow page content -->
+</div>
+
+<script>
+// Script to open and close sidebar- from w3 website
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+</script>
+
+</body>
+</html>
